@@ -1,4 +1,6 @@
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +11,7 @@ public class Logic {
     private Scanner entrada;
     private List<Integer> pares;
     private List<Integer> impares;
-
+private String escolha = "";
     public Logic() {
         entrada = new Scanner(System.in);
         pares = new ArrayList<>();
@@ -17,8 +19,31 @@ public class Logic {
     }
 
     public void run() {
-        parOuImparPositivo();
-    }
+        while (!escolha.equalsIgnoreCase("sair")) {
+
+
+            menu();
+            var option = entrada.nextInt();
+            switch (option) {
+                case  1:
+
+                parOuImparPositivo();
+                break;
+                case  2:
+                converterSegundos();
+                break;
+                default:
+                    System.out.println("opção inválida, tente outra vez.");
+                    break;
+            }
+            System.out.println("você deseja sair, s/n?");
+            String resposta = entrada.next();
+            if (resposta.equalsIgnoreCase("s")){
+                setEscolha("sair");
+           break;
+            }
+        }
+        }
 
     private void parOuImparPositivo() {
         System.out.println("informe a quantidade de números a ser inseridos:");
@@ -53,6 +78,20 @@ public class Logic {
 
 
     }
+private  void converterSegundos(){
+    System.out.printf("informe o número a ser convertido em data e hora:");
+    Long numero = entrada.nextLong();
+    LocalDateTime dataHoraUTC = LocalDateTime.ofEpochSecond(numero, 0, ZoneOffset.UTC);
+    System.out.println("a data informada em formato UTC é: " + dataHoraUTC);
+}
+private void menu(){
+    System.out.println("eescolha uma opção:");
+    System.out.println("1, saber se o número positivo é par ou ímpar");
+    System.out.println("2, converter um número inteiro em data e hora ");
+}
 
+    public void setEscolha(String escolha) {
+        this.escolha = escolha;
+    }
 
 }
