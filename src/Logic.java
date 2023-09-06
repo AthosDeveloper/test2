@@ -7,43 +7,52 @@ import static java.util.Collections.sort;
 import static java.util.Collections.reverse;
 public class Logic {
     private Scanner entrada;
-    private List<Integer> impar;
-    private List<Integer> par;
-    public Logic(){
+    private List<Integer> pares;
+    private List<Integer> impares;
+
+    public Logic() {
         entrada = new Scanner(System.in);
-        impar = new ArrayList<>();
-par= new ArrayList<>();
+        pares = new ArrayList<>();
+        impares = new ArrayList<>();
     }
-    public void run (){
-imparOuParPositivo();
-    }
-    private void imparOuParPositivo(){
-        System.out.println("informe 10 números ");
-        for (int i = 0; i <= 10; i ++){
 
-        var numeros = entrada.nextInt();
-        if ( numeros%2 == 0&& numeros > 0) {
-            par.add(numeros);
-        } else {
-            impar.add(numeros);
+    public void run() {
+        parOuImparPositivo();
+    }
+
+    private void parOuImparPositivo() {
+        System.out.println("informe a quantidade de números a ser inseridos:");
+        var quantidade = entrada.nextInt();
+        int[] quantidades = new int[quantidade];
+        for (int i = 0; i < quantidades.length; i++) {
+            System.out.println("insira os valores desejados");
+            var valor = entrada.nextInt();
+            boolean isParPositivo = (valor % 2 == 0) && (valor  > 0);
+            boolean isImparPositivo = (valor % 2 == 1) && (valor > 1);
+            if (isParPositivo) {
+                pares.add(valor);
+                sort(pares);
+
+            } else if (isImparPositivo) {
+                impares.add(valor);
+               sort(impares);
+               reverse(impares);
+            } else
+                System.out.printf("erro, só aceitamos números positivos");
+
         }
-        sort(par);
-        reverse(impar);
-            for (Integer numero: par){
-                System.out.println(numero);
-            }
-            for (Integer impares: impar){
-                System.out.println(impares);
-            }
 
-            }
+
+        for (Integer par : pares) {
+            System.out.printf("números pares: %d \n", par);
+
+        }
+        for (Integer impar : impares) {
+            System.out.printf("números ímpares: %d \n", impar);
+        }
+
 
     }
-   // private  void conversaoData(){
-        //System.out.println("informe um número");
-       // Integer numero = entrada.nextInt();
-        //SimpleDateFormat original = new SimpleDateFormat("yyyyMMdd");
-        //Date date = original.parse  (numero.toString());
-    }
+
 
 }
